@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yujin Kim — Unity Gameplay &amp; Tools Programmer</title>
+<meta name="description" content="Unity gameplay and tools programmer with 2 years shipping live mobile and PC titles. Open to hobby and rev-share side projects.">
+<meta property="og:title" content="Yujin Kim — Unity Gameplay &amp; Tools Programmer">
+<meta property="og:description" content="Shipped MMORPG, MMO SLG and a Steam action roguelite. Gameplay systems, editor tooling, and profiler-driven optimization. Open to side projects.">
+<meta property="og:image" content="assets/pinkrobot-memento-board.jpg">
+<meta property="og:type" content="website">
+<style>
+:root{
+  --bg:#0c0e13;
+  --panel:#13161e;
+  --panel-2:#181c26;
+  --line:#242a38;
+  --text:#e7e9f0;
+  --muted:#98a0b5;
+  --dim:#6d7488;
+  --accent:#ff6b9d;
+  --accent-dim:#a83f65;
+  --good:#5fe3a1;
+  --radius:10px;
+  --maxw:980px;
+}
+
+*{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:"Inter","Segoe UI",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  font-size:16px;
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(255,107,157,.32);}
+a:hover{border-bottom-color:var(--accent);}
+h1,h2,h3,h4{line-height:1.25;margin:0;font-weight:650;letter-spacing:-.015em;}
+p{margin:0 0 .85em;}
+ul{margin:0;padding-left:1.15em;}
+li{margin-bottom:.4em;}
+figure{margin:0;}
+img{max-width:100%;}
+code{font-family:"JetBrains Mono","SF Mono",Consolas,monospace;font-size:.88em;background:var(--panel-2);border:1px solid var(--line);border-radius:4px;padding:.1em .38em;}
+
+/* ---------- language bar ---------- */
+.langbar{display:flex;gap:6px;justify-content:flex-end;margin-bottom:28px;font-size:.78rem;letter-spacing:.06em;font-weight:600;}
+.langbar a,.langbar span{padding:3px 10px;border-radius:6px;border:1px solid var(--line);color:var(--dim);border-bottom-width:1px;}
+.langbar .cur{color:var(--accent);border-color:var(--accent-dim);background:rgba(255,107,157,.07);}
+.langbar a:hover{color:var(--text);border-color:var(--dim);}
+
+/* ---------- header ---------- */
+header{
+  border-bottom:1px solid var(--line);
+  background:
+    radial-gradient(900px 320px at 12% -10%, rgba(255,107,157,.13), transparent 65%),
+    var(--bg);
+}
+.hero{padding:28px 0 52px;}
+.eyebrow{
+  font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent);font-weight:600;margin-bottom:14px;
+}
+h1{font-size:clamp(2.1rem,5.4vw,3.1rem);margin-bottom:.28em;}
+.tagline{font-size:clamp(1.02rem,2.3vw,1.2rem);color:var(--muted);max-width:44em;margin-bottom:26px;}
+.tagline strong{color:var(--text);font-weight:600;}
+
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:30px;}
+.pill{
+  font-size:.8rem;padding:5px 12px;border-radius:999px;
+  border:1px solid var(--line);background:var(--panel);color:var(--muted);
+  white-space:nowrap;
+}
+.pill.on{border-color:var(--accent-dim);color:var(--accent);background:rgba(255,107,157,.07);}
+
+.cta{display:flex;flex-wrap:wrap;gap:10px;}
+.btn{
+  display:inline-block;padding:11px 20px;border-radius:8px;font-size:.92rem;font-weight:600;
+  border:1px solid var(--line);background:var(--panel);color:var(--text);border-bottom-width:1px;
+}
+.btn:hover{border-color:var(--dim);}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#1a0710;}
+.btn.primary:hover{background:#ff85ae;border-color:#ff85ae;}
+
+/* ---------- sections ---------- */
+section{padding:52px 0;border-bottom:1px solid var(--line);}
+section:last-of-type{border-bottom:0;}
+.sec-head{margin-bottom:26px;}
+.sec-head h2{font-size:1.5rem;margin-bottom:.3em;}
+.sec-head p{color:var(--muted);font-size:.95rem;margin:0;max-width:48em;}
+
+/* ---------- looking for ---------- */
+.seek{
+  background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--accent);
+  border-radius:var(--radius);padding:24px 26px;
+}
+.seek h2{font-size:1.22rem;margin-bottom:.55em;}
+.seek ul{color:var(--muted);}
+.seek li strong{color:var(--text);}
+
+/* ---------- metrics ---------- */
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(214px,1fr));gap:12px;}
+.metric{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px 18px 16px;}
+.metric .num{font-size:1.3rem;font-weight:700;letter-spacing:-.02em;color:var(--good);margin-bottom:2px;line-height:1.3;}
+.metric .num .was{color:var(--dim);font-weight:600;}
+.metric .lbl{font-size:.85rem;color:var(--muted);line-height:1.45;}
+.metric .src{font-size:.72rem;color:var(--dim);margin-top:8px;letter-spacing:.02em;}
+
+/* ---------- projects ---------- */
+.proj{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:26px 28px;margin-bottom:18px;}
+.proj-head{display:flex;gap:22px;align-items:flex-start;border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:22px;}
+.keyart{flex:0 0 200px;}
+.keyart img{width:100%;display:block;border-radius:8px;border:1px solid var(--line);}
+.proj-headmain{flex:1;min-width:0;}
+.proj-top{display:flex;flex-wrap:wrap;gap:10px;align-items:baseline;justify-content:space-between;margin-bottom:2px;}
+.proj h3{font-size:1.22rem;}
+.proj h3 .sub{color:var(--dim);font-weight:500;font-size:.92rem;margin-left:.4em;}
+.dates{font-size:.82rem;color:var(--dim);white-space:nowrap;}
+.meta{display:flex;flex-wrap:wrap;gap:4px 18px;font-size:.83rem;color:var(--muted);margin-top:10px;}
+.meta span b{color:var(--dim);font-weight:500;}
+
+.block{margin-bottom:26px;}
+.block:last-child{margin-bottom:0;}
+.block h4{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:9px;font-weight:650;}
+.block > p, .block > ul{color:var(--muted);font-size:.94rem;}
+.block strong{color:var(--text);font-weight:600;}
+
+.case{background:var(--panel-2);border:1px solid var(--line);border-radius:8px;padding:16px 18px;}
+.case dl{margin:0;display:grid;grid-template-columns:88px 1fr;gap:6px 14px;font-size:.92rem;}
+.case dt{color:var(--dim);font-size:.76rem;letter-spacing:.08em;text-transform:uppercase;padding-top:.32em;}
+.case dd{margin:0;color:var(--muted);}
+.case dd strong{color:var(--text);}
+.case dd.result{color:var(--good);}
+.case dd.result strong{color:var(--good);}
+
+/* ---------- screenshots ---------- */
+.shots{display:grid;gap:10px;margin-top:14px;}
+.shots-1{grid-template-columns:1fr;}
+.shots-2{grid-template-columns:repeat(auto-fit,minmax(255px,1fr));}
+.shots-3{grid-template-columns:repeat(auto-fit,minmax(185px,1fr));}
+.shot{min-width:0;}
+.shot img{width:100%;display:block;border-radius:8px;border:1px solid var(--line);background:#05070a;}
+.shot figcaption{font-size:.75rem;color:var(--dim);margin-top:6px;line-height:1.45;}
+.shot.p{text-align:center;}
+.shot.p img{width:auto;max-height:400px;margin:0 auto;}
+.shot.tall img{width:auto;max-height:470px;margin:0 auto;}
+.shot.tall{text-align:center;}
+/* .nat — never upscale past the source resolution */
+.shot.nat{text-align:center;}
+.shot.nat img{width:auto;max-width:100%;max-height:440px;margin:0 auto;}
+
+/* ---------- others grid ---------- */
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px;}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;}
+.card-banner{margin:-20px -22px 16px;}
+.card-banner img{width:100%;display:block;border-radius:var(--radius) var(--radius) 0 0;border-bottom:1px solid var(--line);}
+.badge{display:inline-block;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;
+  color:var(--dim);border:1px solid var(--line);background:var(--panel-2);border-radius:999px;padding:2px 10px;margin-bottom:9px;}
+.card h3{font-size:1.03rem;margin-bottom:2px;}
+.card h3 .note-sm{color:var(--dim);font-weight:500;font-size:.85rem;}
+.card .cmeta{font-size:.78rem;color:var(--dim);margin-bottom:12px;}
+.card ul{font-size:.89rem;color:var(--muted);}
+.thumbs{display:grid;grid-template-columns:repeat(auto-fit,minmax(88px,1fr));gap:8px;margin-top:14px;}
+.thumbs img{width:100%;height:92px;object-fit:cover;display:block;border-radius:6px;border:1px solid var(--line);background:#05070a;}
+.card .watch{display:inline-block;margin-top:14px;font-size:.85rem;font-weight:600;}
+
+/* ---------- skills ---------- */
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;}
+.skill{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;}
+.skill h4{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:9px;}
+.skill p{font-size:.9rem;color:var(--muted);margin:0;}
+
+/* ---------- footer ---------- */
+footer{padding:48px 0 56px;}
+footer h2{font-size:1.5rem;margin-bottom:.4em;}
+footer .contact-line{font-size:1.05rem;margin-bottom:18px;color:var(--muted);}
+.note{margin-top:30px;font-size:.82rem;color:var(--dim);line-height:1.6;border-top:1px solid var(--line);padding-top:18px;}
+
+@media (max-width:640px){
+  .hero{padding:48px 0 40px;}
+  section{padding:40px 0;}
+  .proj{padding:22px 20px;}
+  .proj-head{flex-direction:column;gap:16px;}
+  .keyart{flex:0 0 auto;max-width:230px;}
+  .case dl{grid-template-columns:1fr;gap:2px 0;}
+  .case dt{padding-top:.7em;}
+  .shot.p img,.shot.tall img{max-height:340px;}
+}
+
+/* ---------- print / save-as-PDF ---------- */
+@media print{
+  :root{--bg:#fff;--panel:#fff;--panel-2:#fafafa;--line:#d8dbe2;--text:#16181d;--muted:#3c414d;--dim:#6b7280;--accent:#c2185b;--good:#0f7a4d;}
+  body{font-size:10.5pt;line-height:1.5;}
+  header{background:#fff;}
+  .hero{padding:0 0 20px;}
+  .cta,.watch,.langbar{display:none;}
+  section{padding:22px 0;break-inside:auto;}
+  .proj,.card,.metric,.skill,.seek,.case,.block,.shots{break-inside:avoid;}
+  .shot img{max-height:150px;width:auto;}
+  .shot{text-align:center;}
+  .thumbs img{height:56px;}
+  .keyart{flex-basis:130px;}
+  a{color:var(--text);border-bottom:0;}
+  .wrap{padding:0;}
+  @page{margin:14mm;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap hero">
+    <div class="langbar"><span class="cur">EN</span><a href="index.ko.html">KO</a></div>
+    <div class="eyebrow">Open to side projects · Remote · KST (UTC+9)</div>
+    <h1>Yujin Kim</h1>
+    <p class="tagline">
+      <strong>Unity gameplay &amp; tools programmer.</strong> Two years shipping and operating
+      live mobile titles and a PC action roguelite on Steam — gameplay systems, editor tooling,
+      and profiler-driven optimization. Before Unity, a year of C++/DirectX work building
+      renderers, map tools and AI from scratch.
+    </p>
+
+    <div class="pills">
+      <span class="pill on">Hobby projects</span>
+      <span class="pill on">Rev-share</span>
+      <span class="pill">Unity / C#</span>
+      <span class="pill">C++ / DirectX 11</span>
+      <span class="pill">Gameplay systems</span>
+      <span class="pill">Editor tooling</span>
+      <span class="pill">Optimization</span>
+    </div>
+
+    <div class="cta">
+      <a class="btn primary" href="mailto:111include@gmail.com">111include@gmail.com</a>
+      <a class="btn" href="https://store.steampowered.com/app/4251870/The_Pink_Robot/" target="_blank" rel="noopener">Shipped on Steam ↗</a>
+      <!-- EDIT: add your GitHub / Discord here if you want them public
+      <a class="btn" href="https://github.com/YOUR-USERNAME" target="_blank" rel="noopener">GitHub ↗</a>
+      -->
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ WHAT I'M LOOKING FOR ============ -->
+<section id="looking-for">
+  <div class="wrap">
+    <div class="seek">
+      <h2>What I'm looking for</h2>
+      <ul>
+        <li><strong>Type of project:</strong> hobby / passion projects and rev-share teams. Not looking for
+        paid contract work here — I'm after interesting problems and people who actually ship.</li>
+        <li><strong>Role:</strong> gameplay programmer. Combat and ability systems, AI and boss patterns,
+        UI architecture, save/data pipelines, and the editor tools that make the rest of the team faster.</li>
+        <li><strong>Engine:</strong> Unity (C#) by default. Comfortable in C++ if the project runs on a custom
+        or third-party engine.</li>
+        <li><strong>Commitment:</strong> part-time, outside of working hours. <!-- EDIT: adjust to your real availability -->
+        I'd rather commit to a small, well-defined slice and deliver it than sign up for everything.</li>
+        <li><strong>Team fit:</strong> I work best with a designer or director who has a clear vision — I'll
+        turn it into systems, tools and readable state machines the rest of the team can edit without me.</li>
+        <li><strong>Timezone:</strong> KST (UTC+9). Async-friendly; I'm used to writing things down.
+        English is comfortable in writing; voice calls are fine with a bit of patience.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ IMPACT ============ -->
+<section id="impact">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Measured impact</h2>
+      <p>A sample of production problems I found, diagnosed with the profiler, and fixed. Every number
+      below is a before/after I measured myself.</p>
+    </div>
+    <div class="metrics">
+      <div class="metric">
+        <div class="num"><span class="was">253.69ms →</span> 84.08ms</div>
+        <div class="lbl">First-item spawn hitch, removed with a scene-load warm-up pass. <b>−67%</b></div>
+        <div class="src">The Pink Robot</div>
+      </div>
+      <div class="metric">
+        <div class="num"><span class="was">83ms →</span> 31ms</div>
+        <div class="lbl">Currency pickup CPU spike, after killing per-item <code>LoadAll</code> in a loop. <b>−62%</b></div>
+        <div class="src">The Pink Robot</div>
+      </div>
+      <div class="metric">
+        <div class="num"><span class="was">0.89GB / 10min →</span> stable</div>
+        <div class="lbl">Runtime material leak traced to a third-party shader asset; now under 1,000 materials across 30+ min sessions.</div>
+        <div class="src">The Pink Robot</div>
+      </div>
+      <div class="metric">
+        <div class="num"><span class="was">~1.3GB →</span> ~20MB</div>
+        <div class="lbl">Memory spike from stacked stat-up VFX that was crashing low-memory devices.</div>
+        <div class="src">Cheonsangbi M</div>
+      </div>
+      <div class="metric">
+        <div class="num"><span class="was">12.6MB →</span> 0.17MB</div>
+        <div class="lbl">Per-BGM memory footprint after switching load type to Streaming. <b>~50× less</b></div>
+        <div class="src">Cheonsangbi M</div>
+      </div>
+      <div class="metric">
+        <div class="num"><span class="was">40min →</span> 15min</div>
+        <div class="lbl">Asset bundle build &amp; publish turnaround, per 15-bundle release. <b>−62%</b></div>
+        <div class="src">Cheonsangbi M</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SHIPPED WORK ============ -->
+<section id="work">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Shipped work</h2>
+      <p>Commercial titles, newest first. Source code is owned by the studios and can't be published —
+      what follows is a description of the systems, the reasoning behind them, and captures from the
+      shipped builds.</p>
+    </div>
+
+    <!-- ---- The Pink Robot ---- -->
+    <article class="proj">
+      <div class="proj-head">
+        <figure class="keyart">
+          <img src="assets/pinkrobot-key.jpg" alt="The Pink Robot key art" loading="lazy">
+        </figure>
+        <div class="proj-headmain">
+          <div class="proj-top">
+            <h3>The Pink Robot <span class="sub">Action roguelite · PC (Steam)</span></h3>
+            <div class="dates">Sep 2025 – Mar 2026</div>
+          </div>
+          <div class="meta">
+            <span><b>Studio</b> Take Five Studios</span>
+            <span><b>Stack</b> C#, Unity, UGUI</span>
+            <span><b>Team</b> 3 client programmers</span>
+            <span><b>Role</b> Prototype &amp; demo development</span>
+            <span><a href="https://store.steampowered.com/app/4251870/The_Pink_Robot/" target="_blank" rel="noopener">Steam page ↗</a></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h4>Skill chain &amp; memento system</h4>
+        <ul>
+          <li>Designed and built the core build-crafting mechanic: basic attacks and skills act as
+          <strong>triggers that cascade through linked memento effects</strong>, so a single hit can fire a chain.</li>
+          <li>Each memento carries a randomized node direction (1–4 sides) and rarity, turning a limited board
+          into a <strong>spatial optimization puzzle</strong>. Dozens of memento types produce genuinely different runs.</li>
+          <li>Effect values scale with the action state the chain fired from — <code>Normal</code> / <code>Charging</code> /
+          <code>Perfect</code> — so <strong>execution skill converts directly into character power</strong>.</li>
+          <li>Built the inventory ↔ board UX: free re-slotting outside combat, colour changes on node connection,
+          and tooltip-driven detail so a dense system stays readable at a glance.</li>
+        </ul>
+        <div class="shots shots-2">
+          <figure class="shot">
+            <img src="assets/pinkrobot-memento-board.jpg" alt="Memento board with connected nodes highlighted" loading="lazy">
+            <figcaption>Board layout — node directions and connection state are colour-coded live.</figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="assets/pinkrobot-memento-board-2.jpg" alt="Memento selector with the inventory panel open" loading="lazy">
+            <figcaption>Inventory ↔ board switching, with tooltips carrying the detail.</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div class="block">
+        <h4>Mini-boss AI &amp; combat patterns</h4>
+        <ul>
+          <li>Authored mini-boss AI with 4–5 patterns each, <strong>15+ patterns and skills total</strong>.
+          Three that are visible in the public demo:</li>
+          <li><strong>Homing tornado</strong> — travels straight for a fixed window, then tracks the player with a
+          <strong>per-frame turn-rate cap</strong>, so it arcs wide and comes back around instead of snapping onto you.</li>
+          <li><strong>Telegraphed charge</strong> — when the player breaks a distance threshold, the boss lays a warning
+          decal and then dashes hard along it.</li>
+          <li><strong>Pull field</strong> — while the player stands inside the zone, a vector toward the field's centre
+          (the boss itself) is added to player movement, dragging them in without ever taking control away.</li>
+        </ul>
+        <div class="shots shots-3">
+          <figure class="shot">
+            <img src="assets/pinkrobot-boss-tornado.jpg" alt="Two tornadoes arcing toward the player" loading="lazy">
+            <figcaption>Homing tornadoes, turn-rate capped.</figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="assets/pinkrobot-boss-charge.jpg" alt="Warning decal on the floor before the boss charges" loading="lazy">
+            <figcaption>Warning decal before the charge.</figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="assets/pinkrobot-boss-pull.jpg" alt="Pull field dragging the player toward the boss" loading="lazy">
+            <figcaption>Pull field, added to the move vector.</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div class="block">
+        <h4>UI framework architecture</h4>
+        <ul>
+          <li>Designed a <code>UIBase</code> root type specialized into five categories by behaviour, with
+          <strong>lifecycle owned exclusively by a single <code>UIManager</code></strong> — nothing creates or destroys
+          UI on its own.</li>
+          <li>Split canvases by role to keep <strong>rebuild cost local</strong> instead of dirtying one giant canvas.</li>
+          <li><strong>Stack-based input layering</strong>: only the topmost interactive UI receives input; everything
+          below it is blocked automatically, which removed a whole class of "clicked through the popup" bugs.</li>
+          <li>Three pooling strategies, selectable per UI class through a <strong>custom attribute exposed as an
+          interface</strong>, so each screen opts into the right cost model.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <h4>Optimization · item spawn &amp; pickup</h4>
+        <div class="case">
+          <dl>
+            <dt>Symptom</dt>
+            <dd>A several-hundred-millisecond hitch the first time an item spawned in a run, plus a CPU spike that
+            froze the screen whenever the player picked up currency.</dd>
+            <dt>Diagnosis</dt>
+            <dd>First spawn: prefab read and file-header load happening <strong>on the main thread</strong> — 253.69ms.
+            Pickup: the loop called <code>LoadAll</code> on the source data once per unit of currency, so
+            <code>Load</code> + <code>Instantiate</code> ran N times — 83ms.</dd>
+            <dt>Fix</dt>
+            <dd>Added a <strong>warm-up pass</strong> that instantiates and immediately destroys key item models at
+            scene load; pre-loaded and cached the ScriptableObject source data so <code>LoadAll</code> never runs at
+            runtime; aggregated identical items so pickup does <strong>one instantiation and one trigger check</strong>
+            regardless of quantity.</dd>
+            <dt>Result</dt>
+            <dd class="result"><strong>253.69ms → 84.08ms (−67%)</strong> on first spawn,
+            <strong>83ms → 31ms (−62%)</strong> on pickup.</dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="block">
+        <h4>Optimization · monster AI, behaviour tree → FSM</h4>
+        <ul>
+          <li>The legacy behaviour-tree setup was <strong>paying full traversal cost</strong> for monsters whose real
+          behaviour was single-state or a simple sequential transition.</li>
+          <li>Rebuilt AI on an FSM to get ahead of the cost curve before monster counts grew, mixing
+          <strong>Any/All conditions with Invert</strong> to keep the logic compact.</li>
+          <li>The point wasn't "FSM is better" — it was picking the technology that matched the content, rather than
+          defending legacy code.</li>
+          <li>Built the graphs in NodeCanvas so <strong>designers and the director could read the state transitions
+          visually</strong> and reason about behaviour without asking a programmer.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <h4>Optimization · runtime memory leak</h4>
+        <div class="case">
+          <dl>
+            <dt>Symptom</dt>
+            <dd>~<strong>0.89GB of memory lost every 10 minutes</strong> after entering a map, with the runtime material
+            count passing <strong>300,000</strong> in that same window.</dd>
+            <dt>Diagnosis</dt>
+            <dd>Snapshot diffing in the Unity Memory Profiler showed a specific third-party shader asset creating
+            <strong>hundreds of identically named materials per second</strong> from inside its own code.</dd>
+            <dt>Fix</dt>
+            <dd>Wrote up the profiler data and a reproduction path, shared it with the team, and made the case for
+            migrating off the faulty library — including a guideline for the replacement.</dd>
+            <dt>Result</dt>
+            <dd class="result">After the team's own verification and an asset update, material count now stays
+            <strong>under 1,000 across 30+ minutes of continuous play</strong>.</dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="block">
+        <h4>Tooling · animation preview window</h4>
+        <ul>
+          <li>Built an <strong>editor-mode simulation loop</strong> on <code>EditorApplication.update</code>, so animations
+          and attack logic can be previewed <strong>without entering play mode</strong> at all.</li>
+          <li>Binds per-weapon override clips correctly in editor and plays them back accurately.</li>
+          <li>Surfaces <strong>animation event positions on the timeline</strong> — exactly when the character moves and
+          when a hitbox spawns — instead of leaving those as invisible data.</li>
+          <li>Draws the character's <strong>predicted movement path and per-weapon hitboxes live in the scene view</strong>.</li>
+          <li>Editing attack range or motion curves in the window updates the preview instantly <em>and</em> writes back to
+          the source prefab, which collapsed the balancing loop for designers.</li>
+        </ul>
+        <div class="shots shots-1">
+          <figure class="shot tall">
+            <img src="assets/pinkrobot-anim-preview-tool.jpg" alt="Top: checking an attack in play mode. Bottom: the same attack previewed in editor mode with movement path and hitboxes drawn in the scene view" loading="lazy">
+            <figcaption>Top: the old way — enter play mode and watch. Bottom: the same attack in editor mode, with the
+            predicted movement path and weapon hitboxes drawn directly in the scene view.</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div class="block">
+        <h4>Automation · lighting environment persistence</h4>
+        <ul>
+          <li>Found that Unity's Lighting <strong>Environment settings (skybox, fog, etc.) aren't stored alongside baked
+          lighting data</strong>, so they were silently lost on scene transitions in our multi-scene setup.</li>
+          <li>Moved that state into a <strong>ScriptableObject that is auto-extracted on scene save</strong> — no extra step
+          for anyone, the asset just appears.</li>
+          <li>Added automatic asset-path matching plus a scene-load hook that applies the matching environment data at
+          the right moment, so lighting is correct without manual setup.</li>
+          <li>A confirmation popup guards against unintentionally overwriting existing data.</li>
+          <li>Removed a recurring source of "the lighting broke again" from the artists' day entirely.</li>
+        </ul>
+        <div class="shots shots-1">
+          <figure class="shot">
+            <img src="assets/pinkrobot-lighting.jpg" alt="A map with its own saved lighting environment applied automatically" loading="lazy">
+            <figcaption>Per-map lighting environments, saved and re-applied automatically on scene load.</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div class="block">
+        <h4>Automation · localization via Google Sheets</h4>
+        <ul>
+          <li>Manual entry into the Localization table stopped scaling once the project passed <strong>10+ languages</strong>.</li>
+          <li>Wired up the Localization package's Google Sheets integration to move translation into a shared cloud sheet.</li>
+          <li>Chose <strong>editor-time sync over runtime sync</strong> deliberately — no credentials shipped in the build,
+          no runtime cost, no network dependency in game.</li>
+          <li>Split Push/Pull into granular operations so two people editing at once don't clobber each other.</li>
+          <li>Wrote and distributed the update guideline and manual, so designers could own their own strings.</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- ---- Disney Realm Breakers ---- -->
+    <article class="proj">
+      <div class="proj-head">
+        <figure class="keyart">
+          <img src="assets/drb-key.jpg" alt="Disney Realm Breakers key art" loading="lazy">
+        </figure>
+        <div class="proj-headmain">
+          <div class="proj-top">
+            <h3>Disney Realm Breakers <span class="sub">MMO SLG · Android / iOS</span></h3>
+            <div class="dates">Mar 2025 – Aug 2025</div>
+          </div>
+          <div class="meta">
+            <span><b>Studio</b> Take Five Studios</span>
+            <span><b>Stack</b> C#, Unity, NGUI</span>
+            <span><b>Team</b> 10 client programmers</span>
+            <span><b>Role</b> Content development, live ops, maintenance</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h4>Content · "Scourge Raid" event</h4>
+        <ul>
+          <li>Built the event scene with <strong>live sync of monster stats and the player's buff state</strong>, so the
+          player can read the fight without leaving the screen.</li>
+          <li>Rewarded-ad top-up for the event-only currency; victory reward feedback; and the post-max-level boss reward
+          loop with its edge cases.</li>
+          <li>Instead of interrupting the player with a popup when entry currency runs out, I kept the button active and
+          <strong>changed its label</strong> — the flow never breaks.</li>
+          <li>Added a blessing-expiry notification and a <strong>2× auto-play mode</strong> for currency-rich players who
+          run the event repeatedly.</li>
+          <li>Proposed copy and presentation changes to match the event's concept, which the team adopted.</li>
+        </ul>
+        <div class="shots shots-2">
+          <figure class="shot p">
+            <img src="assets/drb-event-raid.jpg" alt="Scourge Raid event screen showing boss level and buff state" loading="lazy">
+            <figcaption>Boss tier and player buff state, synced live in the event scene.</figcaption>
+          </figure>
+          <figure class="shot p">
+            <img src="assets/drb-event-blessing.jpg" alt="Blessing buff popup showing a 30% attack increase" loading="lazy">
+            <figcaption>Blessing buff, with the expiry notification system behind it.</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div class="block">
+        <h4>Content · FTUE rework</h4>
+        <ul>
+          <li>Rebuilt the first-time user experience: profile, inventory and shop UI now unlock across
+          <strong>six staged steps</strong> instead of arriving all at once.</li>
+          <li>Authored <strong>42 new guide steps</strong> plus a <strong>"soft nudge" system</strong> that steers the
+          player's next tap by mission priority rather than locking the screen.</li>
+          <li>Integrated <strong>23 new timeline sequences</strong>, a speech-bubble dialogue system that runs during
+          cutscenes, and a screen-border effect during invasions.</li>
+          <li>Built the interface for repairing and constructing buildings <strong>by touching them mid-cinematic</strong>.</li>
+          <li>Added per-state management (destroyed / repairing / complete) for pre-placed buildings, driving which model
+          is shown by progress.</li>
+          <li>Wrote the migration that force-clears guides for existing players based on their actual progress.</li>
+        </ul>
+        <div class="shots shots-2">
+          <figure class="shot p">
+            <img src="assets/drb-ftue.jpg" alt="Starting hero selection screen in the first-time user flow" loading="lazy">
+            <figcaption>One of the six staged FTUE steps.</figcaption>
+          </figure>
+          <figure class="shot p">
+            <img src="assets/drb-speech-bubble.jpg" alt="A character speech bubble rendered during a timeline cutscene" loading="lazy">
+            <figcaption>Speech bubbles playing inside a Timeline sequence.</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div class="block">
+        <h4>Feature · town build queue</h4>
+        <ul>
+          <li>Promoted build-slot information from a buried menu to the <strong>top bar of the main screen</strong>.</li>
+          <li>State-driven UI on <code>LOCK</code> / <code>IDLE</code> / <code>WORKING</code> — lock icon, add button, or
+          building icon plus progress gauge.</li>
+          <li>Live monitoring of construction progress, remaining time and building name, with separate expiry tracking for
+          time-limited slots.</li>
+          <li>Hooked packet responses (speed-up item used, construction complete) to <strong>refresh the UI immediately</strong>
+          rather than on the next poll.</li>
+        </ul>
+        <div class="shots shots-1">
+          <figure class="shot p">
+            <img src="assets/drb-build-queue.jpg" alt="Town screen with the build queue always visible in the top-left" loading="lazy">
+            <figcaption>Build slots, always on screen — state, progress and remaining time.</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div class="block">
+        <h4>Feature · speech bubbles during timelines</h4>
+        <ul>
+          <li>Built a <strong>custom signal system</strong> with paired start/end emitters that define a dialogue window
+          inside a Timeline.</li>
+          <li>Drop multiple <code>StringKey</code>s into one window and the system <strong>auto-splits the duration</strong>
+          so lines play out in sequence — no manual per-line timing.</li>
+          <li>Positioned bubbles from <code>Renderer.bounds</code> with billboarding, so they survive character movement and
+          camera rotation.</li>
+          <li>Wrote a manager that <strong>scans and caches every marker in the track on start</strong>, so nobody has to
+          hand-place signal receivers in each scene.</li>
+          <li>Net effect: detailed dialogue staging became a pure editing task.</li>
+        </ul>
+        <div class="shots shots-1">
+          <figure class="shot nat">
+            <img src="assets/drb-custom-signal.jpg" alt="Inspector for the custom signal emitter, showing emitter type, string keys and duration" loading="lazy">
+            <figcaption>The custom signal emitter — designers set the actor, emitter type and string keys; timing splits itself.</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div class="block">
+        <h4>QoL · one-tap medal box opening</h4>
+        <ul>
+          <li>Growth materials ("medals" and "essences") were often sitting inside unopened boxes, forcing a round trip out
+          to the inventory to use them.</li>
+          <li>Extended the "Go" button shown on insufficient currency to <strong>live-check whether the inventory holds a
+          selection box containing that exact material</strong>.</li>
+          <li>If it does, the button routes to a dedicated popup instead of the inventory — the player
+          <strong>never leaves the growth screen</strong>.</li>
+          <li>Gated the whole feature behind a <strong>server-side flag as a kill switch</strong>, so live issues could be
+          rolled back to the old path instantly.</li>
+          <li><strong>Three steps down to one</strong>, shipped safely into a live game.</li>
+        </ul>
+        <div class="shots shots-1">
+          <figure class="shot">
+            <img src="assets/drb-medal-box.jpg" alt="Growth screen linking straight into a selection box popup instead of the inventory" loading="lazy">
+            <figcaption>The growth screen now opens the box popup directly — no inventory detour.</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div class="block">
+        <h4>QoL · continuous summon</h4>
+        <ul>
+          <li>The [summon → cutscene → result → summon again] loop was pure fatigue for players holding a lot of currency.</li>
+          <li>An <strong>Auto Summon</strong> toggle repeats the summon logic uninterrupted up to the currency the player
+          actually has.</li>
+          <li>Handled the failure cases properly — running out of currency mid-loop or filling the inventory
+          <strong>exits the loop safely and shows the result screen</strong> rather than stalling.</li>
+        </ul>
+        <div class="shots shots-1">
+          <figure class="shot p">
+            <img src="assets/drb-auto-summon.jpg" alt="Summon screen with the Auto Summon checkbox enabled" loading="lazy">
+            <figcaption>Auto Summon, bounded by the player's actual currency.</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div class="block">
+        <h4>Bug · observatory research recommendation</h4>
+        <div class="case">
+          <dl>
+            <dt>Symptom</dt>
+            <dd>The "recommended research" popup suggested research that <strong>required a building upgrade first</strong>,
+            even when something was immediately available. Clicking through showed information that didn't match the actual
+            research tier.</dd>
+            <dt>Diagnosis</dt>
+            <dd>The selection algorithm had <strong>no condition for "can this be started at the current building level"</strong>,
+            and always pulled data from the <em>completed</em> research level — so it could never evaluate the requirements of
+            the next tier (level + 1).</dd>
+            <dt>Fix</dt>
+            <dd>Reordered with a LINQ <code>OrderBy</code> that places entries whose unlock conditions the current building
+            level satisfies at <strong>priority 0</strong>, and branched the table lookup between the current level and
+            level + 1 depending on whether the current tier was exhausted.</dd>
+            <dt>Result</dt>
+            <dd class="result">Recommendations match the design spec, and research icons and names are consistent with the
+            underlying data.</dd>
+          </dl>
+        </div>
+        <div class="shots shots-2">
+          <figure class="shot p">
+            <img src="assets/drb-observatory.jpg" alt="Observatory research tree screen" loading="lazy">
+            <figcaption>The observatory research tree the recommendation drives.</figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="assets/drb-chat.jpg" alt="Two chat rooms side by side showing unread message badges" loading="lazy">
+            <figcaption>Multi-room chat — where the unread-count bug below lived.</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div class="block">
+        <h4>Bug · unread chat message count</h4>
+        <div class="case">
+          <dl>
+            <dt>Symptom</dt>
+            <dd>Correct with a single chat room, but with several open, one room's badge would stop updating — and messages
+            arriving <strong>after the player had left a room were being marked as read</strong>.</dd>
+            <dt>Diagnosis</dt>
+            <dd>The "current room ID" variable was <strong>never cleared on exit</strong> and only refreshed on entering a new
+            room. Combined with the "don't count messages from the room you're in" rule, that meant the room you just left kept
+            swallowing its own notifications.</dd>
+            <dt>Fix</dt>
+            <dd>Reset the variable at the moment of leaving, and pushed the state change to the server immediately to close the
+            client/server latency window that could reintroduce the same class of bug.</dd>
+            <dt>Result</dt>
+            <dd class="result">Read-state sync fixed, and unread badges became trustworthy again.</dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="block">
+        <h4>Optimization · graphics-quality-driven NPC population</h4>
+        <ul>
+          <li>Ambient NPCs wandering the town carried a measurable render and memory cost, so I tied their population to the
+          graphics quality setting.</li>
+          <li>Dropping to Low <strong>despawns the existing NPCs</strong> (10–20 on average) and blocks further spawns; going
+          back to High respawns them and resumes their animation.</li>
+          <li>Result: <strong>batches −14.4% (160 → 137)</strong>, <strong>draw calls −14.0% (164 → 141)</strong>, and
+          <strong>total used memory −3.6% (3.61GB → 3.48GB)</strong>.</li>
+        </ul>
+        <div class="shots shots-2">
+          <figure class="shot">
+            <img src="assets/drb-profiler-before.jpg" alt="Unity profiler capture before the change, at Low graphics settings" loading="lazy">
+            <figcaption>Before — Low graphics preset.</figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="assets/drb-profiler-after.jpg" alt="Unity profiler capture after the change, at Low graphics settings" loading="lazy">
+            <figcaption>After — same preset, fewer batches, draw calls and megabytes.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </article>
+
+    <!-- ---- Cheonsangbi M ---- -->
+    <article class="proj">
+      <div class="proj-head">
+        <figure class="keyart">
+          <img src="assets/csb-key.jpg" alt="Cheonsangbi M key art" loading="lazy">
+        </figure>
+        <div class="proj-headmain">
+          <div class="proj-top">
+            <h3>Cheonsangbi M <span class="sub">MMORPG · Android / iOS</span></h3>
+            <div class="dates">Aug 2024 – Mar 2025</div>
+          </div>
+          <div class="meta">
+            <span><b>Studio</b> GNI Soft</span>
+            <span><b>Stack</b> C#, Unity, UGUI</span>
+            <span><b>Team</b> 3 client programmers</span>
+            <span><b>Role</b> Content development, maintenance, Japan launch owner</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h4>Content · title (nameplate) system, end to end</h4>
+        <ul>
+          <li>Data pipeline from <code>.csv</code> into <code>Dictionary&lt;T&gt;</code>, plus the full UI: an
+          <strong>infinite-scroll list</strong> ordered by index but with unlocked entries floated to the top via LINQ.</li>
+          <li>Buff application on equip, a hide-equipped-title setting, and title swapping driven by preset changes.</li>
+          <li>All server traffic for the feature: equipped title, per-title cumulative progress, expiry of time-limited titles,
+          and <strong>broadcasting title changes to nearby players</strong>.</li>
+          <li>Contextual suppression rules — titles hide while using a stealth skill or when fighting as a mercenary in a world
+          siege.</li>
+          <li>Acquisition and expiry notifications, plus red-dot badging on the menu icon.</li>
+        </ul>
+        <div class="shots shots-3">
+          <figure class="shot">
+            <img src="assets/csb-title-system.jpg" alt="Title list UI with unlock conditions and equip state" loading="lazy">
+            <figcaption>Title list — unlocked entries sorted to the front.</figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="assets/csb-title-detail.jpg" alt="Title detail popup showing the buff values it grants" loading="lazy">
+            <figcaption>Equip buffs, resolved per title.</figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="assets/csb-title-settings.jpg" alt="Settings screen with the hide-equipped-title toggle" loading="lazy">
+            <figcaption>The hide-equipped-title setting.</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div class="block">
+        <h4>QoL · warehouse auto-store, bulk relist, bulk retrieve</h4>
+        <ul>
+          <li><strong>Auto-store</strong>: LINQ-split consumable and misc items whose index matches between inventory and
+          warehouse, verify per-slot stack limits and whether the warehouse actually has room, then send the store request.</li>
+          <li><strong>Bulk relist</strong>: filter the sell list down to expired listings, re-fetch the original price and fee
+          from the server, and re-register every one of them at the same price.</li>
+          <li><strong>Bulk retrieve</strong>: request retrieval for the batch, and clear each entry from the list as its
+          inventory-create packet comes back.</li>
+        </ul>
+        <div class="shots shots-2">
+          <figure class="shot">
+            <img src="assets/csb-warehouse.jpg" alt="Inventory and warehouse side by side" loading="lazy">
+            <figcaption>Inventory ↔ warehouse, where auto-store runs.</figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="assets/csb-market.jpg" alt="Player market listing screen" loading="lazy">
+            <figcaption>The market screen behind bulk relist and retrieve.</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div class="block">
+        <h4>Crash · stacked stat-up effects</h4>
+        <div class="case">
+          <dl>
+            <dt>Symptom</dt>
+            <dd>Intermittent hard crashes during early-game combat.</dd>
+            <dt>Diagnosis</dt>
+            <dd>Effects fired on level-up and on every stat increase (strength / agility / vitality / proficiency) had
+            <strong>no cap</strong>. At low levels a single fight raises dozens of stats, so effects were instantiated in a
+            burst — a <strong>~1.3GB memory spike</strong> in the profiler.</dd>
+            <dt>Fix</dt>
+            <dd>Observed that past three overlapping effects, shader blending makes the count visually indistinguishable —
+            so I counted active effects on play start, released on end, and <strong>skipped the call past three</strong>.
+            Also replaced <code>Instantiate()</code> with a pool to remove the create/destroy cost.</dd>
+            <dt>Result</dt>
+            <dd class="result">Spike stabilized from <strong>~1.3GB to roughly 20MB</strong>, and the crash stopped
+            reproducing even on small-memory devices (iPhone 13 mini, iPad mini 3).</dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="block">
+        <h4>Optimization · audio clip load type</h4>
+        <div class="case">
+          <dl>
+            <dt>Symptom</dt>
+            <dd>BGM clips were authored with load type <code>Compressed In Memory</code>.</dd>
+            <dt>Diagnosis</dt>
+            <dd>A 2.3MB clip occupied <strong>12.6MB of actual memory</strong>, and every map transition that changed the BGM
+            loaded another ~10MB on top.</dd>
+            <dt>Fix</dt>
+            <dd>Switched to <code>Streaming</code> — which is also what Unity's own documentation recommends for background
+            music.</dd>
+            <dt>Result</dt>
+            <dd class="result">Same file now costs <strong>0.17MB while playing and 0.006MB when idle</strong> — at least a
+            <strong>50× reduction</strong>, ~10MB saved per BGM, roughly <strong>50MB across a session</strong> with five
+            music changes.</dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="block">
+        <h4>Tooling · asset bundle build pipeline</h4>
+        <ul>
+          <li>The old flow built bundles <strong>one type at a time</strong>, then required someone to hand-write the bundle
+          list text file: bump the version, type today's date, check each bundle's size in MB, and comment out the previous
+          block with <code>;</code>.</li>
+          <li>Rebuilt it as <strong>checkbox multi-select with batch generation</strong>, and made the list write itself —
+          version auto-incremented, date from <code>DateTime</code>, sizes from <code>FileInfo</code> in MB, previous entries
+          auto-commented, and the list bundle generated right after.</li>
+          <li><strong>~62% faster: 40 minutes down to 15</strong> for a typical 15-bundle release.</li>
+          <li>Separately, automated the text-data bundle path — launching the encryption program, entering the password, and
+          running the second-pass bundle build all happen behind one popup.
+          <strong>Four manual steps → two; 7–8 minutes → 3–4.</strong></li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <h4>Japan launch</h4>
+        <ul>
+          <li><strong>Age-based spending cap</strong>: age packet on shop entry, an age confirmation popup when the server has
+          no record, pushing the new value to the server and mirroring it into <code>PlayerPrefs</code> for cross-device
+          checks — with the purchase flow <strong>gated on the server's verdict</strong> before it can proceed.</li>
+          <li>I2 Localization for in-game UI and script translation.</li>
+          <li>Build and submission management: Google Play APK/AAB, and Apple App Store via Unity → Xcode → TestFlight.</li>
+          <li>Firebase Cloud Messaging for push notifications.</li>
+          <li>Adjust: token issuance, event registration, and the in-script event-send code via the Adjust SDK.</li>
+          <li>QA support for the Japanese build.</li>
+        </ul>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ ENGINE-LEVEL ============ -->
+<section id="engine">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Engine-level work · C++ &amp; DirectX</h2>
+      <p>Before Unity, I built games on top of DirectX with no engine underneath — renderer, tools, AI and all.
+      <strong>All four are recreations</strong>: study projects that rebuild an existing commercial game's systems
+      and feel from scratch. None of them is original IP, and none is distributed — the point was the engine work,
+      not the design. Videos are linked on each entry.</p>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <figure class="card-banner"><img src="assets/ff7-title.jpg" alt="Final Fantasy VII Remake study project title screen" loading="lazy"></figure>
+        <span class="badge">Recreation</span>
+        <h3>Final Fantasy VII Remake <span class="note-sm">(team project)</span></h3>
+        <div class="cmeta">Action RPG · C/C++, DirectX 11, ImGui, JSON · 5 people · Feb – Apr 2024 · UI, camera, lighting, minigames</div>
+        <ul>
+          <li>Three UI projection modes — orthographic, screen-locked perspective, and true 3D world-space — plus the UI work across the game.</li>
+          <li><strong>ImGui-based UI authoring tool.</strong></li>
+          <li>Camera tool, and the in-game cutscenes built with it.</li>
+          <li>Lighting tool and light placement.</li>
+          <li>Minigame implementation.</li>
+        </ul>
+        <div class="thumbs">
+          <img src="assets/ff7-camera-tool.jpg" alt="ImGui camera tool with capture list and interpolation settings" loading="lazy">
+          <img src="assets/ff7-lighting-tool.jpg" alt="ImGui lighting tool with per-light diffuse, specular and ambient controls" loading="lazy">
+          <img src="assets/ff7-ui-materia.jpg" alt="World-space perspective UI showing a magic command list" loading="lazy">
+        </div>
+        <a class="watch" href="https://www.youtube.com/watch?v=oPwEHSDcpRA" target="_blank" rel="noopener">Watch ↗</a>
+      </div>
+
+      <div class="card">
+        <figure class="card-banner"><img src="assets/tunic-title.jpg" alt="TUNIC+ title screen" loading="lazy"></figure>
+        <span class="badge">Recreation</span>
+        <h3>TUNIC+ <span class="note-sm">(solo)</span></h3>
+        <div class="cmeta">Action adventure · C/C++, DirectX 11, ImGui · solo · Nov 2023 – Feb 2024 · everything</div>
+        <ul>
+          <li>3D animation interpolation and blending.</li>
+          <li><strong>Six monster types with FSM AI</strong>, full combat, and boss patterns.</li>
+          <li>Navigation mesh implementation.</li>
+          <li>Assimp model import <strong>converted to a binary format</strong> for faster loads.</li>
+          <li>Map tool: tile terrain generation and terrain editing via picking.</li>
+          <li>Pixel-shader fog and map-wide environment particles.</li>
+        </ul>
+        <div class="thumbs">
+          <img src="assets/tunic-map-tool.jpg" alt="Map tool with terrain height edit mode and brush settings" loading="lazy">
+          <img src="assets/tunic-navmesh.jpg" alt="Navigation mesh drawn over the terrain in the editor" loading="lazy">
+          <img src="assets/tunic-boss.jpg" alt="Boss enemy mid-attack" loading="lazy">
+        </div>
+        <a class="watch" href="https://www.youtube.com/watch?v=uq0Vex-5-0k" target="_blank" rel="noopener">Watch ↗</a>
+      </div>
+
+      <div class="card">
+        <figure class="card-banner"><img src="assets/fps-title.jpg" alt="Fashion Police Squad study project loading screen" loading="lazy"></figure>
+        <span class="badge">Recreation</span>
+        <h3>Fashion Police Squad <span class="note-sm">(team project)</span></h3>
+        <div class="cmeta">FPS / action adventure · C/C++, DirectX 9, ImGui · 3 people · 6 weeks, Sep – Oct 2023 · map, objects, camera, events, minigames</div>
+        <ul>
+          <li>Map tool and object placement tool.</li>
+          <li>DirectX lighting with <strong>light culling</strong>.</li>
+          <li>Cube map placement and billboarding.</li>
+          <li>Two minigames (timed directional input; obstacle-dodging coin collection).</li>
+        </ul>
+        <div class="thumbs">
+          <img src="assets/fps-map-tool.jpg" alt="Map tool with tile palette and cube placement controls" loading="lazy">
+          <img src="assets/fps-gameplay.jpg" alt="First-person view of the city level" loading="lazy">
+        </div>
+        <a class="watch" href="https://www.youtube.com/watch?v=Fro0QpjP8TQ" target="_blank" rel="noopener">Watch ↗</a>
+      </div>
+
+      <div class="card">
+        <figure class="card-banner"><img src="assets/momo-title.jpg" alt="Momodora study project title screen" loading="lazy"></figure>
+        <span class="badge">Recreation</span>
+        <h3>Momodora: Reverie Under the Moonlight <span class="note-sm">(solo)</span></h3>
+        <div class="cmeta">Metroidvania RPG · C/C++, WinAPI · solo · 2 weeks, Jun – Jul 2023 · everything</div>
+        <ul>
+          <li>2D physics from scratch: AABB collision, gravity, and world object interaction.</li>
+          <li>FSM-driven player and enemy state control.</li>
+          <li>A simple inventory built on <code>vector</code>.</li>
+          <li>Maze-escape minigame.</li>
+        </ul>
+        <div class="thumbs">
+          <img src="assets/momo-combat.jpg" alt="Player attacking an enemy with a spinning weapon arc" loading="lazy">
+          <img src="assets/momo-inventory.jpg" alt="Inventory screen with active and passive slots" loading="lazy">
+        </div>
+        <a class="watch" href="https://www.youtube.com/watch?v=pmuVKH--SKA" target="_blank" rel="noopener">Watch ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SKILLS ============ -->
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head"><h2>Toolbox</h2></div>
+    <div class="skills">
+      <div class="skill">
+        <h4>Languages</h4>
+        <p>C# · C/C++ (STL) · HLSL basics</p>
+      </div>
+      <div class="skill">
+        <h4>Engines &amp; graphics</h4>
+        <p>Unity (UGUI, NGUI, Timeline, Localization, Addressables/AssetBundles) · DirectX 9 &amp; 11 · ImGui</p>
+      </div>
+      <div class="skill">
+        <h4>Gameplay systems</h4>
+        <p>Ability &amp; buff systems · FSM and behaviour-tree AI · boss patterns · UI architecture &amp; pooling · inventory and economy · client/server packet flows</p>
+      </div>
+      <div class="skill">
+        <h4>Editor tooling</h4>
+        <p>Custom editor windows · scene-view gizmos and handles · ScriptableObject pipelines · build &amp; bundle automation · Google Sheets integration</p>
+      </div>
+      <div class="skill">
+        <h4>Performance</h4>
+        <p>Unity Profiler &amp; Memory Profiler snapshot diffing · draw call and batch reduction · asset load-type tuning · pooling · leak hunting</p>
+      </div>
+      <div class="skill">
+        <h4>Ship &amp; operate</h4>
+        <p>Google Play (APK/AAB) · App Store via Xcode/TestFlight · Firebase Cloud Messaging · Adjust SDK · live-ops feature flags and kill switches · QA support</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <h2>Get in touch</h2>
+    <p class="contact-line">
+      If you're building something and want a gameplay programmer who also leaves the team better tools than
+      they found — say hello.
+    </p>
+    <div class="cta">
+      <a class="btn primary" href="mailto:111include@gmail.com">111include@gmail.com</a>
+      <!-- EDIT: add Discord / GitHub / itch links here if you want them public
+      <a class="btn" href="#">Discord: yourhandle</a>
+      -->
+    </div>
+    <p class="note">
+      Source code for the commercial titles above is owned by the respective studios and cannot be published.
+      The descriptions cover systems, reasoning and measured results only; screenshots are captures of shipped
+      builds, shown here to illustrate the work. Disney Realm Breakers and The Pink Robot are © Take Five Studios;
+      Cheonsangbi M is © GNI Soft. The four projects in the last section are recreations: they rebuild existing
+      games for learning purposes, all rights to those games remain with their original developers and publishers,
+      and none of the recreations is distributed.
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
